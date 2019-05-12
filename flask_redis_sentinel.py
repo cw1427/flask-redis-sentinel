@@ -156,6 +156,8 @@ class RedisSentinel(object):
     @staticmethod
     def _config_from_variables(config, the_class):
         args = inspect.getargspec(the_class.__init__).args
+        base_args = inspect.getargspec(redis.client.Redis.__init__).args
+        args.extend(base_args)
         args.remove('self')
         args.remove('host')
         args.remove('port')
